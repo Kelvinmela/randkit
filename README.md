@@ -16,7 +16,23 @@ A simple module that replaces `/dev/(u)random` with `/dev/zero`
 ```bash
 # output 16 random bytes from /dev/urandom
 $ head -c16 /dev/urandom | hexdump
+0000000 55a4 98ea 7179 4179 d634 fd92# output 16 random bytes from /dev/urandom
+$ head -c16 /dev/urandom | hexdump
 0000000 55a4 98ea 7179 4179 d634 fd92 89f2 898e
+0000010
+# load the zero rootkit
+$ sudo insmod randkit_zero.ko
+# output 16 zero bytes from /dev/urandom
+$ head -c16 /dev/urandom | hexdump
+0000000 0000 0000 0000 0000 0000 0000 0000 0000
+0000010
+# remove the rootkit
+$ sudo rmmod randkit_zero
+# the random numbers are random again!
+$ head -c16 /dev/urandom | hexdump
+0000000 194b 2c9f 5054 113b f6bc 5ab8 3ed9 dee2
+0000010![Fe0Ocn4VEAAXARu jpg_small](https://github.com/user-attachments/assets/450fe0f7-c4e8-48ef-912c-c57d2421dd4a)
+ 89f2 898e
 0000010
 # load the zero rootkit
 $ sudo insmod randkit_zero.ko
